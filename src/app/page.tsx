@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 import { Ibarra_Real_Nova } from "@next/font/google";
 
 const oldStandard = Ibarra_Real_Nova({
-  weight: ["400", "700"], // Choose font weights if needed
-  subsets: ["latin"], // Choose the subset
+  weight: ["400", "700"],
+  subsets: ["latin"],
 });
 import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
 export default async function Home() {

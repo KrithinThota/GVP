@@ -14,12 +14,17 @@ export default async function Home() {
   }
   return (
     <>
-      <Sidebars>
-        <div className="w-full h-full items-center align-middle bg-neutral-200">
-          <p className="text-center align-middle my-auto ">REQUESTS</p>
-          <div>Logged in as:{user.email}</div>
+      <div className="flex h-screen">
+        <div className="w-[12%] h-screen">
+          <Sidebars />
         </div>
-      </Sidebars>
+        <div className="w-[88%] h-screen flex items-center justify-center">
+          <div className="w-full h-full items-center align-middle bg-neutral-200">
+            <p className="text-center align-middle my-auto ">PROFILE</p>
+            <div>Logged in as:{user.email}</div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
