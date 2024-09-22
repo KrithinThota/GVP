@@ -1,3 +1,5 @@
+
+"use client";
 import {
   Card,
   CardContent,
@@ -15,20 +17,35 @@ import {
 } from "@/components/ui/table";
 import AttendanceToggle from "./Toggle";
 import { format } from "date-fns";
+import { useEffect, useState } from "react";
 import { getAttandance } from "@/data-access/teacher";
+import DatePicker from "@/components/ui/DatePicker";
 
 interface UserTableProps {
   name: string;
-  selectedDate?: Date;
 }
 
-export default async function UserTable({
-  name,
-  selectedDate = new Date(),
-}: UserTableProps) {
-  const students = await getAttandance(name, selectedDate);
+export default function UserTable({ name }: UserTableProps) {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [students, setStudents] = useState([]); // State to store the students
+  const [loading, setLoading] = useState(true); // Loading state
 
-  const formattedDate = format(selectedDate, "yyyy-MM-dd");
+  useEffect(() => {
+    const fetchAttendanceForDate = async (date: Date) => {
+      if (!date) return;
+
+      setLoading(true); // Show loading state while fetching
+      const formattedDate = new Date(date);
+
+      const data = await getAttandance(name, formattedDate);
+      setStudents(data);
+      setLoading(false); // Hide loading state after fetching
+    };
+
+    fetchAttendanceForDate(selectedDate);
+  }, [selectedDate, name]);
+
+  const formattedDate = selectedDate ? format(selectedDate, "yyyy-MM-dd") : "";
 
   return (
     <Card>
@@ -39,55 +56,64 @@ export default async function UserTable({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>User</TableHead>
-              <TableHead className="hidden sm:table-cell">First Name</TableHead>
-              <TableHead className="hidden sm:table-cell">Last Name</TableHead>
-              <TableHead className="hidden md:table-cell">ID</TableHead>
-              <TableHead className="text-right">Attendance</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {students.map((student) => {
-              const attendance = student.attendance[0]?.present ?? false;
+        <div className="mb-4">
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)} // Set the selected date
+            placeholderText="Select a date"
+          />
+        </div>
 
-              return (
-                <TableRow key={student.id} className="bg-accent">
-                  <TableCell>
-                    <div className="font-medium">
-                      {student.firstName} {student.lastName}
-                    </div>
-                    <div className="hidden text-sm text-muted-foreground md:inline">
-                      {student.email}
-                    </div>
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    {student.firstName}
-                  </TableCell>
-                  <TableCell className="hidden sm:table-cell">
-                    {student.lastName}
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    {student.id}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <AttendanceToggle
-                      studentId={student.id}
-                      defaultAttendance={attendance}
-                      selectedDate={selectedDate}
-                      isToday={
-                        selectedDate.toDateString() ===
-                        new Date().toDateString()
-                      }
-                    />
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>User</TableHead>
+                <TableHead className="hidden sm:table-cell">First Name</TableHead>
+                <TableHead className="hidden sm:table-cell">Last Name</TableHead>
+                <TableHead className="hidden md:table-cell">ID</TableHead>
+                <TableHead className="text-right">Attendance</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {students.map((student) => {
+                const attendance = student.attendance[0]?.present ?? false;
+
+                return (
+                  <TableRow key={student.id} className="bg-accent">
+                    <TableCell>
+                      <div className="font-medium">
+                        {student.firstName} {student.lastName}
+                      </div>
+                      <div className="hidden text-sm text-muted-foreground md:inline">
+                        {student.email}
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell">
+                      {student.firstName}
+                    </TableCell>
+                    <TableCell className="hidden sm:table-cell">
+                      {student.lastName}
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      {student.id}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <AttendanceToggle
+                        studentId={student.id}
+                        defaultAttendance={attendance} // Only toggle for attendance
+                        selectedDate={selectedDate || new Date()} 
+                        isToday={format(selectedDate, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd')}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        )}
       </CardContent>
     </Card>
   );

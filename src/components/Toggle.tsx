@@ -36,20 +36,16 @@ export default function AttendanceToggle({
   }, [defaultAttendance]);
 
   const handleToggle = async () => {
-    const updatedAttendance = !isPresent; // Capture the new value here before setting the state
+    const updatedAttendance = !isPresent; 
     setIsPresent(updatedAttendance);
-
-    if (isToday) {
-      await saveAttendanceToServer(updatedAttendance);
-    } else {
-      setIsModified(true);
-    }
+    setIsModified(true);
   };
 
   const saveAttendanceToServer = async (updatedAttendance: boolean) => {
     try {
-      await saveAttendance(studentId, selectedDate, updatedAttendance);
+      const dateOnly = new Date(selectedDate);
 
+      await saveAttendance(studentId, dateOnly, updatedAttendance);
       setIsModified(false);
       toast({
         title: "Success",
