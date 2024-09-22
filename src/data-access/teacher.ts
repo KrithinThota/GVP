@@ -30,41 +30,6 @@ export const getAttandance = cache(async (name: string, selectedDate: Date) => {
       return students;
 });
 
-export async function saveAttendance(studentId: string, selectedDate: Date, isPresent: boolean) {
-    const { isAuthenticated, getPermission } = getKindeServerSession();
-    if (!(await isAuthenticated())) {
-      redirect("/api/auth/login");
-    }
-    const permission = await getPermission("update:grades");
-    if (!permission?.isGranted) {
-        redirect("/access-denied");
-    }
-
-    try {
-      const attendanceRecord = await prisma.attendance.upsert({
-        where: {
-          studentId_date: {
-            studentId,
-            date: selectedDate,
-          },
-        },
-        update: {
-          present: isPresent,
-        },
-        create: {
-          studentId,
-          date: selectedDate,
-          present: isPresent,
-        },
-      });
-  
-      return attendanceRecord;
-    } catch (error) {
-      console.error("Error saving attendance:", error);
-      throw new Error("Failed to save attendance");
-    }
-  }
-
 export async function AddUser(formData:FormData){
     await prisma.student.create({
         data: {
@@ -78,4 +43,64 @@ export async function AddUser(formData:FormData){
     return{
         message: "success",
     }
+}
+
+export async function saveAttendance(
+  studentId: string,
+  selectedDate: Date,
+  isPresent: boolean
+) {
+  const { isAuthenticated, getPermission } = getKindeServerSession();
+  if (!(await isAuthenticated())) {
+    redirect("/api/auth/login");
+  }
+  const permission = await getPermission("update:grades");
+  if (!permission?.isGranted) {
+    redirect("/access-denied");
+  }
+
+  const today = new Date().toISOString().split("T")[0]; // Today's date in "YYYY-MM-DD" format
+  const selectedDateString = selectedDate.toISOString().split("T")[0];
+
+  if (today === selectedDateString) {
+    try {
+      // Find existing attendance record
+      const existingAttendance = await prisma.attendance.findFirst({
+        where: {
+          studentId: studentId,
+          date: selectedDate, // Ensure we look for today's date
+        },
+      });
+
+      if (existingAttendance) {
+        // Update the existing record
+        const updatedAttendance = await prisma.attendance.update({
+          where: {
+            id: existingAttendance.id, // Use the unique ID to update the record
+          },
+          data: {
+            present: isPresent, // Update the attendance
+          },
+        });
+
+        return updatedAttendance;
+      } else {
+        // Create a new attendance record if none exists for today
+        const newAttendance = await prisma.attendance.create({
+          data: {
+            studentId,
+            date: selectedDate,
+            present: isPresent,
+          },
+        });
+
+        return newAttendance;
+      }
+    } catch (error) {
+      console.error("Error saving attendance:", error);
+      throw new Error("Failed to save attendance");
+    }
+  } else {
+    throw new Error("You can only modify today's attendance.");
+  }
 }

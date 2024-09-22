@@ -32,21 +32,23 @@ export default function AttendanceToggle({
   const router = useRouter();
 
   useEffect(() => {
-    setIsPresent(defaultAttendance);
+    setIsPresent(defaultAttendance); // Sync state with props
   }, [defaultAttendance]);
 
   const handleToggle = async () => {
-    setIsPresent(!isPresent);
+    const updatedAttendance = !isPresent; // Capture the new value here before setting the state
+    setIsPresent(updatedAttendance);
+
     if (isToday) {
-      await saveAttendanceToServer();
+      await saveAttendanceToServer(updatedAttendance);
     } else {
       setIsModified(true);
     }
   };
 
-  const saveAttendanceToServer = async () => {
+  const saveAttendanceToServer = async (updatedAttendance: boolean) => {
     try {
-      await saveAttendance(studentId, selectedDate, isPresent);
+      await saveAttendance(studentId, selectedDate, updatedAttendance);
 
       setIsModified(false);
       toast({
@@ -80,7 +82,9 @@ export default function AttendanceToggle({
               Are you sure you want to save the changes to this attendance
               record?
             </DialogDescription>
-            <Button onClick={saveAttendanceToServer}>Confirm</Button>
+            <Button onClick={() => saveAttendanceToServer(isPresent)}>
+              Confirm
+            </Button>
             <DialogClose asChild>
               <Button variant="secondary">Cancel</Button>
             </DialogClose>

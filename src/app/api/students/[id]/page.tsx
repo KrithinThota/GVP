@@ -1,5 +1,15 @@
 import { Sidebars } from "@/components/SideBar";
-export default function Home() {
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
+export default async function Home({ params }: { params: { id: string } }) {
+  const { isAuthenticated, getPermission } = getKindeServerSession();
+  if (!(await isAuthenticated())) {
+    redirect("/api/auth/login");
+  }
+  const permission = await getPermission("view:profile");
+  if (!permission?.isGranted) {
+    return <div>Access Denied</div>;
+  }
   return (
     <>
       <div className="flex h-screen">
@@ -9,6 +19,7 @@ export default function Home() {
         <div className="flex-grow h-full overflow-y-auto items-center justify-center py-2 ">
           <div className="container mx-auto py-10 px-5">
             <h1 className="text-5xl font-bold text-center mb-6">About Us </h1>
+            <h1 className="text-5xl font-bold text-center mb-6">{params.id}</h1>
 
             <p className="mb-4">
               The Gayatri Vidya Parishad College of Engineering [GVPCE] had its
