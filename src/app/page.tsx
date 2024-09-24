@@ -1,4 +1,5 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import Navbar from "@/components/Navbar";
 import { Sidebars } from "@/components/SideBar";
 import { cn } from "@/lib/utils";
 import { Ibarra_Real_Nova } from "@next/font/google";
@@ -32,10 +33,9 @@ export default async function Home() {
   return (
     <>
       <div className="flex h-screen">
-        <div className="w-1/3 h-screen flox-shrink-0 overflow-hidden">
-          <Sidebars />
-        </div>
-        <div className="flex-grow h-full overflow-y-auto items-center justify-center py-2 ">
+        <Navbar />
+
+        <div className="flex-grow h-full overflow-y-auto items-center justify-center">
           <MaxWidthWrapper className=" flex overflow-y-auto h-screen items-center">
             <div
               className={cn(
@@ -56,7 +56,7 @@ export default async function Home() {
               </p>
             </div>
           </MaxWidthWrapper>
-          <section className="border-t border-neutral-200 bg-neutral-50 my-10 py-10">
+          <section className="border-t border-neutral-200 bg-neutral-50 mt-10 pt-10">
             <MaxWidthWrapper className="py-20">
               <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
                 {perks.map((perk) => (

@@ -1,3 +1,4 @@
+import AccessDenied from "@/components/AccessDenied";
 import { Sidebars } from "@/components/SideBar";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
@@ -6,9 +7,9 @@ export default async function Home({ params }: { params: { id: string } }) {
   if (!(await isAuthenticated())) {
     redirect("/api/auth/login");
   }
-  const permission = await getPermission("view:profile");
+  const permission = await getPermission("view:student");
   if (!permission?.isGranted) {
-    return <div>Access Denied</div>;
+    return <AccessDenied />;
   }
   return (
     <>

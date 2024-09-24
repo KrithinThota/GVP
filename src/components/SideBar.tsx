@@ -13,7 +13,6 @@ import {
   LoginLink,
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
-
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -22,44 +21,39 @@ export function Sidebars() {
   const links = [
     {
       label: "Profile",
-      href: "/api/teachers/profile",
+      href: "/dashboard",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
-      requiredPermission: "view-profile",
     },
     {
       label: "Attendance",
-      href: "/api/teachers/attendance",
+      href: "/dashboard/teachers/attendance",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
-      requiredPermission: "update-attendance",
     },
 
     {
       label: "Grades",
-      href: "/api/teachers/grades",
+      href: "/dashboard/teachers/grades",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
-      requiredPermission: "update-grades",
     },
     {
       label: "Requests",
-      href: "/api/teachers/requests",
+      href: "/dashboard/teachers/requests",
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
-      requiredPermission: "view-requests",
     },
     {
       label: "Add ",
-      href: "/api/teachers/add-student",
+      href: "/dashboard/teachers/add-student",
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
-      requiredPermission: "view-requests",
     },
   ];
 
@@ -74,12 +68,7 @@ export function Sidebars() {
             {links.map((link, idx) => (
               <SidebarLink key={idx} link={link} />
             ))}
-            <LoginLink className="group/sidebar py-2 text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
-              Sign in
-            </LoginLink>
-            <RegisterLink className="group/sidebar py-2 text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
-              Register account
-            </RegisterLink>
+
             <LogoutLink className="group/sidebar py-2 text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
               Log Out
             </LogoutLink>
@@ -89,7 +78,7 @@ export function Sidebars() {
           <SidebarLink
             link={{
               label: "ZOIR",
-              href: "#",
+              href: "/dashboard",
               icon: (
                 <Image
                   src="/zoir.png"

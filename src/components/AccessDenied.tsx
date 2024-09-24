@@ -1,4 +1,4 @@
-export default function Home() {
+export default function AccessDenied() {
   return (
     <>
       <div className="flex bg-background items-center justify-center h-screen ">

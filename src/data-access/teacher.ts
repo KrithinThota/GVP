@@ -11,7 +11,7 @@ export const getAttandance = cache(async (name: string, selectedDate: Date) => {
     if (!(await isAuthenticated())) {
       redirect("/api/auth/login");
     }
-    const permission = await getPermission("update:grades");
+    const permission = await getPermission("view:admin");
     if (!permission?.isGranted) {
         redirect("/access-denied");
     }
@@ -31,6 +31,15 @@ export const getAttandance = cache(async (name: string, selectedDate: Date) => {
 });
 
 export async function AddUser(formData:FormData){
+  const { isAuthenticated, getPermission } = getKindeServerSession();
+
+  if (!(await isAuthenticated())) {
+    redirect("/api/auth/login");
+  }
+  const permission = await getPermission("view:admin");
+  if (!permission?.isGranted) {
+      redirect("/access-denied");
+  }
     await prisma.student.create({
         data: {
             firstName: formData.get('first-name') as string,
@@ -54,7 +63,7 @@ export async function saveAttendance(
   if (!(await isAuthenticated())) {
     redirect("/api/auth/login");
   }
-  const permission = await getPermission("update:grades");
+  const permission = await getPermission("view:admin");
   if (!permission?.isGranted) {
     redirect("/access-denied");
   }
