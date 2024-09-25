@@ -1,8 +1,8 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Navbar from "@/components/Navbar";
-import { Sidebars } from "@/components/SideBar";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Ibarra_Real_Nova } from "@next/font/google";
+import { Ibarra_Real_Nova } from "next/font/google";
 
 const oldStandard = Ibarra_Real_Nova({
   weight: ["400", "700"],
