@@ -9,7 +9,14 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import MaxWidthWrapper from "../MaxWidthWrapper";
+import { Ibarra_Real_Nova } from "next/font/google";
+import { cn } from "@/lib/utils";
 
+const oldStandard = Ibarra_Real_Nova({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
 export const HeroParallax = ({
   products,
 }: {
@@ -43,7 +50,7 @@ export const HeroParallax = ({
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    useTransform(scrollYProgress, [0, 0.1], [0.1, 1]),
     springConfig
   );
   const rotateZ = useSpring(
@@ -57,7 +64,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[300vh] py-10 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -103,16 +110,26 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        The Ultimate <br /> development studio
-      </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        We build beautiful products with the latest technologies and frameworks.
-        We are a team of passionate developers and designers that love to build
-        amazing products.
-      </p>
-    </div>
+    <MaxWidthWrapper className="flex overflow-y-auto items-center mt-40 pt-40">
+      <div
+        className={cn(
+          oldStandard.className,
+          "py-20 mx-auto text-center flex flex-col items-center max-w-5xl"
+        )}
+      >
+        <h1 className="text-xl font-semibold tracking-tight text-neutral sm:text-7xl leading-tight">
+          GAYATRI VIDYA PARISHAD <br></br>
+          <span className="text-neutral-600 text-6xl">
+            Deemed to be University
+          </span>
+          .
+        </h1>
+        <p className="mt-6 text-xl max-w-prose text-muted-foreground ">
+          Empowering future innovators with world-class education, cutting-edge
+          research, and a commitment to excellence.
+        </p>
+      </div>
+    </MaxWidthWrapper>
   );
 };
 
@@ -136,7 +153,7 @@ export const ProductCard = ({
         y: -20,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0"
+      className="group/product h-96 w-[30rem] relative flex-shrink-0 "
     >
       <Link
         href={product.link}
@@ -146,7 +163,7 @@ export const ProductCard = ({
           src={product.thumbnail}
           height="600"
           width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
+          className="object-cover object-center absolute h-full w-full inset-0"
           alt={product.title}
         />
       </Link>

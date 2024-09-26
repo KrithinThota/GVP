@@ -1,6 +1,5 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Navbar from "@/components/Navbar";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Ibarra_Real_Nova } from "next/font/google";
 
@@ -9,7 +8,10 @@ const oldStandard = Ibarra_Real_Nova({
   subsets: ["latin"],
 });
 import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
-export default async function Home() {
+import { Hero } from "@/components/Hero";
+import FooterComponent from "@/components/footer";
+
+export default function Home() {
   const perks = [
     {
       name: "Instant Delivery",
@@ -32,30 +34,13 @@ export default async function Home() {
   ];
   return (
     <>
-      <div className="flex h-screen">
+      <div className="flex min-h-screen">
         <Navbar />
 
         <div className="flex-grow h-full overflow-y-auto items-center justify-center">
-          <MaxWidthWrapper className=" flex overflow-y-auto h-screen items-center">
-            <div
-              className={cn(
-                oldStandard.className,
-                "py-20 mx-auto text-center flex flex-col items-center max-w-5xl"
-              )}
-            >
-              <h1 className="text-xl font-semibold tracking-tight text-neutral sm:text-7xl leading-tight">
-                GAYATRI VIDYA PARISHAD <br></br>
-                <span className="text-neutral-600 text-6xl">
-                  Deemed to be University
-                </span>
-                .
-              </h1>
-              <p className="mt-6 text-xl max-w-prose text-muted-foreground ">
-                Empowering future innovators with world-class education,
-                cutting-edge research, and a commitment to excellence.
-              </p>
-            </div>
-          </MaxWidthWrapper>
+          <section className=" py-8 mt-8">
+            <Hero />
+          </section>
           <section className="border-t border-neutral-200 bg-neutral-50 mt-10 pt-10">
             <MaxWidthWrapper className="py-20">
               <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-0">
@@ -85,6 +70,7 @@ export default async function Home() {
           </section>
         </div>
       </div>
+      <FooterComponent />
     </>
   );
 }
