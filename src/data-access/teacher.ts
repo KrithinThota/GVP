@@ -5,7 +5,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-export const getAttandance = cache(async (name: string, selectedDate: Date) => {
+export const getAttandance = async (classId: string, selectedDate: Date) => {
 
     const { isAuthenticated, getPermission } = getKindeServerSession();
     if (!(await isAuthenticated())) {
@@ -17,7 +17,7 @@ export const getAttandance = cache(async (name: string, selectedDate: Date) => {
     }
     const students = await prisma.student.findMany({
         where: {
-          class: name,
+          class: classId,
         },
         include: {
           attendance: {
@@ -28,7 +28,7 @@ export const getAttandance = cache(async (name: string, selectedDate: Date) => {
         },
       });
       return students;
-});
+};
 
 export async function AddUser(formData:FormData){
   const { isAuthenticated, getPermission } = getKindeServerSession();
@@ -111,5 +111,67 @@ export async function saveAttendance(
     }
   } else {
     throw new Error("You can only modify today's attendance.");
+  }
+}
+
+export async function addGradesFromSheet(
+  gradeSheet: { email: string, examId: string, grade: string }[]
+) {
+  const { isAuthenticated, getPermission } = getKindeServerSession();
+
+  if (!(await isAuthenticated())) {
+    redirect("/api/auth/login");
+  }
+
+  const permission = await getPermission("view:admin");
+  if (!permission?.isGranted) {
+    redirect("/access-denied");
+  }
+
+  try {
+    for (const entry of gradeSheet) {
+      const { email, examId, grade } = entry;
+
+      const student = await prisma.student.findFirst({
+        where: { email },
+      });
+
+      if (!student) {
+        throw new Error(`Student with email ${email} not found.`);
+      }
+
+      // Check if the exam exists
+      const exam = await prisma.exam.findUnique({
+        where: { id: examId },
+      });
+
+      if (!exam) {
+        throw new Error(`Exam with id ${examId} not found.`);
+      }
+
+      await prisma.grade.upsert({
+        where: {
+          studentId_examId: {
+            studentId: student.id,
+            examId: exam.id,
+          },
+        },
+        update: {
+          grade,
+        },
+        create: {
+          studentId: student.id,
+          examId: exam.id,
+          grade,
+        },
+      });
+    }
+
+    return {
+      message: "Grades successfully added or updated.",
+    };
+  } catch (error) {
+    console.error("Error adding grades:", error);
+    throw new Error("Failed to add grades.");
   }
 }

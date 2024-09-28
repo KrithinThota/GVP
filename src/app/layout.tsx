@@ -15,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ZOIR.Uni",
-  description: "ZOIR Uni",
+  title: "ZOIR University",
+  description: "A University Webiste developed by ZOIR",
 };
 
 export default function RootLayout({

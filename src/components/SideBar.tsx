@@ -17,11 +17,14 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-export function Sidebars() {
+type SidebarsProps = {
+  user: boolean; // Prop to indicate if user is logged in or not
+};
+export function Sidebars({ user }: SidebarsProps) {
   const links = [
     {
       label: "Profile",
-      href: "/dashboard",
+      href: "/dashboard/profile",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -68,10 +71,17 @@ export function Sidebars() {
             {links.map((link, idx) => (
               <SidebarLink key={idx} link={link} />
             ))}
-
-            <LogoutLink className="group/sidebar py-2 text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
-              Log Out
-            </LogoutLink>
+            {user ? (
+              <LogoutLink className="group/sidebar py-2 text-neutral-700 dark:text-neutral-200 text-s group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
+                Log Out
+              </LogoutLink>
+            ) : (
+              <>
+                <LoginLink className="group/sidebar py-2 text-neutral-700 dark:text-neutral-200 text-s group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
+                  Log In
+                </LoginLink>
+              </>
+            )}
           </div>
         </div>
         <div>

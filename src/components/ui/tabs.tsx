@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Ensure this is present
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 type Tab = {
   title: string;
   value: string;
-  content?: string | React.ReactNode;
+  onClick: () => void; // Add onClick property
 };
 
 export const Tabs = ({
@@ -42,11 +42,12 @@ export const Tabs = ({
           containerClassName
         )}
       >
-        {propTabs.map((tab, idx) => (
+        {tabs.map((tab, idx) => (
           <button
             key={tab.title}
             onClick={() => {
               moveSelectedTabToTop(idx);
+              tab.onClick(); // Call the onClick function here
             }}
             className={cn("relative px-4 py-2 rounded-full", tabClassName)}
             style={{
@@ -80,20 +81,17 @@ export const Tabs = ({
   );
 };
 
-export const FadeInDiv = ({
+const FadeInDiv = ({
   className,
   tabs,
-  hovering,
+  active,
 }: {
   className?: string;
-  key?: string;
   tabs: Tab[];
   active: Tab;
-  hovering?: boolean;
 }) => {
-  const isActive = (tab: Tab) => {
-    return tab.value === tabs[0].value;
-  };
+  const isActive = (tab: Tab) => tab.value === active.value;
+
   return (
     <div className="relative w-full h-full">
       {tabs.map((tab, idx) => (
@@ -102,7 +100,7 @@ export const FadeInDiv = ({
           layoutId={tab.value}
           style={{
             scale: 1 - idx * 0.1,
-            top: hovering ? idx * -50 : 0,
+            top: isActive(tab) ? 0 : 0,
             zIndex: -idx,
             opacity: idx < 3 ? 1 - idx * 0.1 : 0,
           }}
@@ -110,9 +108,7 @@ export const FadeInDiv = ({
             y: isActive(tab) ? [0, 40, 0] : 0,
           }}
           className={cn("w-full h-full absolute top-0 left-0", className)}
-        >
-          {tab.content}
-        </motion.div>
+        ></motion.div>
       ))}
     </div>
   );

@@ -18,35 +18,42 @@ import { format } from "date-fns";
 import { getAttandance } from "@/data-access/teacher";
 
 interface UserTableProps {
-  name: string;
+  classId: string;
   selectedDate?: Date;
 }
 
 export default async function UserTable({
-  name,
+  classId,
   selectedDate = new Date(),
 }: UserTableProps) {
-  const students = await getAttandance(name, selectedDate);
+  const students = await getAttandance(classId, selectedDate);
+  console.log("Fetched students:", students);
 
   const formattedDate = format(selectedDate, "yyyy-MM-dd");
 
   return (
-    <Card>
-      <CardHeader className="px-7">
-        <CardTitle>Class-{name}</CardTitle>
+    <Card className="relative flex flex-col md:max-w-7xl mx-auto w-full items-start justify-start my-8 py-2">
+      <CardHeader>
+        <CardTitle>Class-{classId}</CardTitle>
         <CardDescription>
-          Attendance records for Class-{name} on {formattedDate}
+          Attendance records for Class-{classId} on {formattedDate}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
+        <Table className="table-fixed w-full">
+          {" "}
+          {/* Add table-fixed class */}
           <TableHeader>
             <TableRow>
-              <TableHead>User</TableHead>
-              <TableHead className="hidden sm:table-cell">First Name</TableHead>
-              <TableHead className="hidden sm:table-cell">Last Name</TableHead>
-              <TableHead className="hidden md:table-cell">ID</TableHead>
-              <TableHead className="text-right">Attendance</TableHead>
+              <TableHead className="w-1/4">User</TableHead>{" "}
+              {/* Set width for columns */}
+              <TableHead className="hidden sm:table-cell w-1/4">
+                First Name
+              </TableHead>
+              <TableHead className="hidden sm:table-cell w-1/4">
+                Last Name
+              </TableHead>
+              <TableHead className="w-1/4 text-right">Attendance</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -68,9 +75,6 @@ export default async function UserTable({
                   </TableCell>
                   <TableCell className="hidden sm:table-cell">
                     {student.lastName}
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    {student.id}
                   </TableCell>
                   <TableCell className="text-right">
                     <AttendanceToggle

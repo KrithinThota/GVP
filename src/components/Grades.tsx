@@ -55,54 +55,52 @@ export default async function Grades() {
           <TableBody>
             {students.map((student) => {
               return (
-                <>
-                  <TableRow>
-                    <TableCell className="hidden sm:table-cell">
-                      <Image
-                        alt="Product image"
-                        className="aspect-square rounded-md object-cover"
-                        height="64"
-                        src="/zoir.png"
-                        width="64"
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {student.firstName} {student.lastName}
-                    </TableCell>
+                <TableRow>
+                  <TableCell className="hidden sm:table-cell">
+                    <Image
+                      alt="Product image"
+                      className="aspect-square rounded-md object-cover"
+                      height="64"
+                      src="/zoir.png"
+                      width="64"
+                    />
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    {student.firstName} {student.lastName}
+                  </TableCell>
 
-                    <TableCell className="hidden md:table-cell">
-                      {student.firstName}
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">Grade</Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {student.email}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {student.id}
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            aria-haspopup="true"
-                            size="icon"
-                            variant="ghost"
-                          >
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>Edit</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                </>
+                  <TableCell className="hidden md:table-cell">
+                    {student.firstName}
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="outline">Grade</Badge>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    {student.email}
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    {student.id}
+                  </TableCell>
+                  <TableCell>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          aria-haspopup="true"
+                          size="icon"
+                          variant="ghost"
+                        >
+                          <MoreHorizontal className="h-4 w-4" />
+                          <span className="sr-only">Toggle menu</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
               );
             })}
           </TableBody>

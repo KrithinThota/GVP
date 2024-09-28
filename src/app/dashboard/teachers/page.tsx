@@ -15,17 +15,19 @@ export default async function Home() {
   }
   return (
     <>
-      <div className="flex h-screen">
-        <div className="w-[12%] h-screen">
-          <Sidebars />
-        </div>
-        <div className="w-[88%] h-screen flex items-center justify-center">
-          <div className="w-full h-full items-center align-middle bg-neutral-200">
-            <p className="text-center align-middle my-auto ">PROFILE</p>
-            <h1>Login as:{user.email}</h1>
-            <DarkLight />
-          </div>
-        </div>
+      <div className="w-full h-full items-center align-middle bg-neutral-200">
+        <p className="text-center align-middle my-auto ">PROFILE</p>
+        <h1>Login as:{user.email}</h1>
+        <p>{user.id}</p>
+        <p>{user.family_name}</p>
+        <p>{user.given_name}</p>
+        <p>{user.username}</p>
+        <p>{user.phone_number}</p>
+        <p>{user.properties?.usr_city}</p>
+        <p>{user.properties?.kp_usr_industry}</p>
+        <p>{user.properties?.job_title}</p>
+
+        {/* <DarkLight /> */}
       </div>
     </>
   );

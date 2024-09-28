@@ -15,6 +15,7 @@ model Student {
   email      String
   class      String
   attendance Attendance[]
+  grades     Grade[]
 }
 
 model Attendance {
@@ -25,4 +26,22 @@ model Attendance {
   Student   Student  @relation(fields: [studentId], references: [id])
 
   @@unique([studentId, date])
+}
+
+model Grade {
+  id        String  @id @default(cuid())
+  studentId String
+  examId    String
+  grade     String
+  Student   Student @relation(fields: [studentId], references: [id])
+  Exam      Exam    @relation(fields: [examId], references: [id])
+
+  @@unique([studentId, examId]) // Ensure each student has only one grade per exam
+}
+
+model Exam {
+  id     String   @id @default(cuid())
+  name   String   @unique
+  date   DateTime
+  grades Grade[]
 }

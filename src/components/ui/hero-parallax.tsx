@@ -12,6 +12,8 @@ import Link from "next/link";
 import MaxWidthWrapper from "../MaxWidthWrapper";
 import { Ibarra_Real_Nova } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Button } from "./button";
+import { IconArrowRight } from "@tabler/icons-react";
 
 const oldStandard = Ibarra_Real_Nova({
   weight: ["400", "700"],
@@ -64,7 +66,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-10 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[270vh] py-10 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -110,7 +112,7 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <MaxWidthWrapper className="flex overflow-y-auto items-center mt-40 pt-40">
+    <MaxWidthWrapper className="flex overflow-y-auto items-center mt-20 pt-20 z-10">
       <div
         className={cn(
           oldStandard.className,
@@ -118,7 +120,7 @@ export const Header = () => {
         )}
       >
         <h1 className="text-xl font-semibold tracking-tight text-neutral sm:text-7xl leading-tight">
-          GAYATRI VIDYA PARISHAD <br></br>
+          ZOIR UNIVERSITY<br></br>
           <span className="text-neutral-600 text-6xl">
             Deemed to be University
           </span>
@@ -128,6 +130,15 @@ export const Header = () => {
           Empowering future innovators with world-class education, cutting-edge
           research, and a commitment to excellence.
         </p>
+        <Button
+          asChild
+          className=" mt-4 bg-opacity-30 text-md backdrop-blur-lg dark:bg-neutral-200 text-neutral-100 dark:text-neutral-700"
+        >
+          <Link href="/admissions">
+            Admissions
+            <IconArrowRight className="text-neutral-100 dark:text-neutral-700 h-5 w-5 flex-shrink-0 ml-2" />
+          </Link>
+        </Button>
       </div>
     </MaxWidthWrapper>
   );
@@ -153,7 +164,7 @@ export const ProductCard = ({
         y: -20,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0 "
+      className="group/product h-96 w-[30rem] relative flex-shrink-0 z-1"
     >
       <Link
         href={product.link}
