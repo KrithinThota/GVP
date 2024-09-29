@@ -1,16 +1,14 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import Navbar from "@/components/Navbar";
-import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
 import { Hero } from "@/components/Hero";
-import FooterComponent from "@/components/Credits";
 import Perks from "@/components/Perks";
-import Footer from "@/components/BottomFooter";
+import BottomFooter from "@/components/footer";
+import Credits from "@/components/Credits";
+import { NavigationMenuDemo } from "@/components/landing-navbar1";
 
 export default function Home() {
   return (
     <>
       <div className="flex min-h-screen">
-        <Navbar />
+        <NavigationMenuDemo />
 
         <div className="flex-grow h-full overflow-y-auto items-center justify-center">
           <section className=" py-8 mt-8">
@@ -19,10 +17,10 @@ export default function Home() {
           <section className="border-t border-neutral-200 bg-neutral-50 mt-10 pt-10">
             <Perks />
           </section>
-          <Footer />
+          <BottomFooter />
         </div>
       </div>
-      <FooterComponent />
+      <Credits />
     </>
   );
 }

@@ -1,6 +1,4 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
-import { Form } from "@/components/Form";
 import { Sidebars } from "@/components/SideBar";
 import Dashboard from "@/components/Dashboard";
 export default async function Home() {

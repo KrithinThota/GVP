@@ -30,7 +30,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="w-full py-5 sm:px-10 px-5 flex justify-between fixed top-0 left-0 right-0 bg-neutral-100 bg-opacity-10 backdrop-blur-xl shadow-lg items-center z-50">
+    <header className="w-full py-4 sm:px-10 px-5 flex justify-between fixed top-0 left-0 right-0 bg-neutral-100 bg-opacity-10 backdrop-blur-xl shadow-lg items-center z-50">
       <nav className="flex w-full screen-max-width items-center justify-between">
         <div className="flex items-center space-x-3 justify-start">
           <Link href="/">

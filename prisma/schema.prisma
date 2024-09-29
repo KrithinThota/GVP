@@ -36,12 +36,11 @@ model Grade {
   Student   Student @relation(fields: [studentId], references: [id])
   Exam      Exam    @relation(fields: [examId], references: [id])
 
-  @@unique([studentId, examId]) // Ensure each student has only one grade per exam
+  @@unique([studentId, examId])
 }
 
 model Exam {
-  id     String   @id @default(cuid())
-  name   String   @unique
-  date   DateTime
+  id     String  @id @default(cuid())
+  name   String  @unique
   grades Grade[]
 }

@@ -8,7 +8,7 @@ const useTheme = () => {
   return "black"; // or "white"
 };
 
-const FooterComponent = () => {
+const Credits = () => {
   const [isVisible, setIsVisible] = useState(true); // Start visible
   const theme = useTheme(); // Get the current theme
 
@@ -50,4 +50,4 @@ const FooterComponent = () => {
   );
 };
 
-export default FooterComponent;
+export default Credits;

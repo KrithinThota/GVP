@@ -114,64 +114,36 @@ export async function saveAttendance(
   }
 }
 
-export async function addGradesFromSheet(
-  gradeSheet: { email: string, examId: string, grade: string }[]
-) {
+export async function getGrades(classId: string, examId: string) {
   const { isAuthenticated, getPermission } = getKindeServerSession();
-
   if (!(await isAuthenticated())) {
     redirect("/api/auth/login");
   }
-
   const permission = await getPermission("view:admin");
   if (!permission?.isGranted) {
     redirect("/access-denied");
   }
 
-  try {
-    for (const entry of gradeSheet) {
-      const { email, examId, grade } = entry;
-
-      const student = await prisma.student.findFirst({
-        where: { email },
-      });
-
-      if (!student) {
-        throw new Error(`Student with email ${email} not found.`);
-      }
-
-      // Check if the exam exists
-      const exam = await prisma.exam.findUnique({
-        where: { id: examId },
-      });
-
-      if (!exam) {
-        throw new Error(`Exam with id ${examId} not found.`);
-      }
-
-      await prisma.grade.upsert({
+  const students = await prisma.student.findMany({
+    where: {
+      class: classId,
+      grades: {
+        some: {
+          examId: examId,
+        },
+      },
+    },
+    include: {
+      grades: {
         where: {
-          studentId_examId: {
-            studentId: student.id,
-            examId: exam.id,
-          },
+          examId: examId,
         },
-        update: {
-          grade,
-        },
-        create: {
-          studentId: student.id,
-          examId: exam.id,
-          grade,
-        },
-      });
-    }
+      },
+    },
+  });
 
-    return {
-      message: "Grades successfully added or updated.",
-    };
-  } catch (error) {
-    console.error("Error adding grades:", error);
-    throw new Error("Failed to add grades.");
-  }
+  return students;
+}
+export async function getExams() {
+  return await prisma.exam.findMany();
 }

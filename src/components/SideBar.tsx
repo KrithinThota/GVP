@@ -18,7 +18,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 type SidebarsProps = {
-  user: boolean; // Prop to indicate if user is logged in or not
+  user: boolean;
 };
 export function Sidebars({ user }: SidebarsProps) {
   const links = [
