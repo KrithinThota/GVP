@@ -15,7 +15,7 @@ export default async function Home() {
   }
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-none mb-4">
+      <div className="flex-none my-8 px-4 md:mb-4">
         <TabsDemo />
       </div>
       <div className="flex-grow overflow-y-auto justify-center items-center">

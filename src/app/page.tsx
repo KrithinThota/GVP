@@ -1,9 +1,9 @@
 import { Hero } from "@/components/Hero";
 import Perks from "@/components/Perks";
-import BottomFooter from "@/components/footer";
 import Credits from "@/components/Credits";
 import { NavigationMenuDemo } from "@/components/landing-navbar1";
-import { InfiniteMovingCardsDemo } from "@/components/landing-moving";
+import { InfiniteMovingCardsDemo } from "@/components/Home-InfiniteMoving";
+import BottomFooter from "@/components/Home-Footer";
 
 export default function Home() {
   return (

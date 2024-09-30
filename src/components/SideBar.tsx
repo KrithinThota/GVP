@@ -20,11 +20,12 @@ import Image from "next/image";
 type SidebarsProps = {
   user: boolean;
 };
+
 export function Sidebars({ user }: SidebarsProps) {
   const links = [
     {
       label: "Profile",
-      href: "/dashboard/profile",
+      href: "/dashboard",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),

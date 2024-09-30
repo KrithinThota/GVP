@@ -24,8 +24,8 @@ interface UserTableProps {
 
 export default function UserTableSkeleton() {
   return (
-    <Card className="relative flex flex-col md:max-w-7xl mx-auto min-h-[60%] w-full items-start justify-start my-8 py-2">
-      <div className="bg-neutral-600 h-full w-full flex "></div>
+    <Card className="relative bg-neutral-300 flex flex-col md:max-w-7xl mx-auto  min-h-[60%] md:min-h-[80%] max-w-[90%] items-start justify-start my-12 md:my-8 md:py-2 animate-pulse">
+      <div className=" h-full w-full flex "></div>
     </Card>
   );
 }

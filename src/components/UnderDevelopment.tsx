@@ -1,4 +1,4 @@
-export default function AccessDenied() {
+export default function Development() {
   return (
     <div className="flex bg-background items-center justify-center h-screen ">
       <div className="text-center align-middle ">

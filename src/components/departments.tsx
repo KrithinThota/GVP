@@ -119,7 +119,6 @@ const departments = [
   },
 ];
 
-// Custom styling using MUI's makeStyles hook
 const useStyles = makeStyles({
   container: {
     marginTop: "6rem", // Increased margin-top to bring the content lower
