@@ -37,7 +37,7 @@ const Credits = () => {
       animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 100 }}
       transition={{ duration: 0.5 }}
       className={`fixed bottom-0 left-0 right-0 p-2 border-t border-gray-500 
-        bg-white bg-opacity-10 backdrop-blur-sm text-gray-500`} // Tailwind glass effect
+        bg-white bg-opacity-10 backdrop-blur-sm text-gray-500 z-20`} // Tailwind glass effect
     >
       <div className="max-w-7xl mx-auto text-center">
         <p className="text-xs">© 2024 ZOIR University. All rights reserved.</p>

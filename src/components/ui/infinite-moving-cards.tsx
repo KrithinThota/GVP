@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 export const InfiniteMovingCards = ({
@@ -80,27 +81,20 @@ export const InfiniteMovingCards = ({
         )}
       >
         {items.map((item) => (
-            <li
-            className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-gray-500 px-8 py-6 md:w-[450px]"
-            style={{
-              background:
-              "linear-gradient(180deg, var(--white), var(--slate-100))",
-            }}
-            key={item.name}
-            >
-            <blockquote>
-              <div
+          <blockquote>
+            <div
               aria-hidden="true"
-              className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-              ></div>
-              {/* Replace text with the image */}
-              <img
-              src="/1.png" // Using the image named 1.png
-              alt="Image" // Provide an appropriate alt text
-              className="w-full h-auto rounded-md" // Adjust styles as necessary
-              />
-            </blockquote>
-            </li>
+              className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(80%_+_4px)] w-[calc(100%_+_4px)]"
+            ></div>
+            {/* Replace text with the image */}
+            <Image
+              height="200"
+              width="400"
+              src="/zoirw.png"
+              alt="Image"
+              className="w-full rounded-md"
+            />
+          </blockquote>
         ))}
       </ul>
     </div>

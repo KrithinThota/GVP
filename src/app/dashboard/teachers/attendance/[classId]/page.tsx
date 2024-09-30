@@ -1,4 +1,4 @@
-// pages/attendance/[classId]/index.tsx
+// pages/attendance/[classId]/page.tsx
 import AccessDenied from "@/components/AccessDenied";
 import { TabsDemo } from "@/components/TabsDemo";
 import UserTable from "@/components/UserTable";

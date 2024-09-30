@@ -33,99 +33,93 @@ export function Form() {
   }
 
   return (
-    <>
-      <form ref={formRef} onSubmit={handleSubmit} className="align-middle">
-        <Card className="mx-auto max-w-md">
-          <CardHeader>
-            <CardTitle className="text-xl">Add Student</CardTitle>
-            <CardDescription>Enter Student Information</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4">
-              {/* Name Fields */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="first-name">First Name</Label>
-                  <Input
-                    id="first-name"
-                    name="first-name"
-                    placeholder="Max"
-                    required
-                  />
-                </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="last-name">Last Name</Label>
-                  <Input
-                    id="last-name"
-                    name="last-name"
-                    placeholder="Robinson"
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Class Dropdown */}
+    <form ref={formRef} onSubmit={handleSubmit} className="align-middle">
+      <Card className="mx-auto max-w-md">
+        <CardHeader>
+          <CardTitle className="text-xl">Add Student</CardTitle>
+          <CardDescription>Enter Student Information</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="class">Class</Label>
-                <Select name="class" required>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Class" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="A">Class A</SelectItem>
-                    <SelectItem value="B">Class B</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Gender and Age Fields */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="gender">Gender</Label>
-                  <Select name="gender" required>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select Gender" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="male">Male</SelectItem>
-                      <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="grid gap-2">
-                  <Label htmlFor="age">Age</Label>
-                  <Input
-                    id="age"
-                    name="age"
-                    type="number"
-                    placeholder="18"
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Email Field */}
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="first-name">First Name</Label>
                 <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="m@example.com"
+                  id="first-name"
+                  name="first-name"
+                  placeholder="Max"
                   required
                 />
               </div>
 
-              <Button type="submit" className="w-full mt-4">
-                Submit
-              </Button>
+              <div className="grid gap-2">
+                <Label htmlFor="last-name">Last Name</Label>
+                <Input
+                  id="last-name"
+                  name="last-name"
+                  placeholder="Robinson"
+                  required
+                />
+              </div>
             </div>
-          </CardContent>
-        </Card>
-      </form>
-    </>
+
+            <div className="grid gap-2">
+              <Label htmlFor="class">Class</Label>
+              <Select name="class" required>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Class" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="A">Class A</SelectItem>
+                  <SelectItem value="B">Class B</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="gender">Gender</Label>
+                <Select name="gender" required>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="age">Age</Label>
+                <Input
+                  id="age"
+                  name="age"
+                  type="number"
+                  placeholder="18"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+              />
+            </div>
+
+            <Button type="submit" className="w-full mt-4">
+              Submit
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </form>
   );
 }
