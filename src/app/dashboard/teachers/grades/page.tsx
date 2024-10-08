@@ -12,9 +12,5 @@ export default async function Home() {
   if (!permission?.isGranted) {
     return <AccessDenied />;
   }
-  return (
-    <>
-      <Grades />
-    </>
-  );
+  return <Grades />;
 }

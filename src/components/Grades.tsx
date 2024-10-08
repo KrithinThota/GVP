@@ -41,7 +41,7 @@ export default function Grades() {
   const [students, setStudents] = useState<Student[]>([]);
   const [exams, setExams] = useState<Exam[]>([]);
 
-  const classOptions = ["A", "B", "C"];
+  const classOptions = ["A", "B"];
 
   useEffect(() => {
     const fetchExams = async () => {

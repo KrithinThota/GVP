@@ -68,7 +68,7 @@ export const InfiniteMovingCards = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20 max-w-7xl overflow-hidden border border-gray-300 [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller relative z-10 max-w-7xl overflow-hidden border border-gray-300 [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className
       )}
     >
@@ -84,9 +84,8 @@ export const InfiniteMovingCards = ({
           <blockquote>
             <div
               aria-hidden="true"
-              className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(80%_+_4px)] w-[calc(100%_+_4px)]"
+              className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(60%_+_4px)] w-[calc(100%_+_4px)]"
             ></div>
-            {/* Replace text with the image */}
             <Image
               height="200"
               width="400"
